@@ -2,53 +2,51 @@
 	"geode": "5.4.1",
 
 	"gd": {
-		"win": 		"2.2081",
-		"android": 	"2.2081",
-		"mac": 		"2.2081",
-		"ios": 		"2.2081"
+		"win":     "2.2081",
+		"android": "2.2081",
+		"mac":     "2.2081",
+		"ios":     "2.2081"
 	},
 
-	"id": 			"bobby_shmurner.zoom",
-	"name": 		"Zoooom!",
-	"version": 		"1.3.3",
-	"developer": 	"Bobby Shmurner",
-	"description": 	"Allows you to zoom while paused!",
+	"id":          "bobby_shmurner.zoom",
+	"name":        "Zoooom!",
+	"version":     "1.3.3",
+	"developer":   "Bobby Shmurner",
+	"description": "Allows you to zoom while paused!",
 
 	"links": {
 		"source": "https://github.com/BobbyShmurner/Zoom"
 	},
+
 	"dependencies": {
 		"geode.node-ids": {
-			"version": 		">=v1.20.1",
-			"importance": 	"required"
-		},
-
-		"geode.custom-keybinds": {
-			"version": 		">=v1.10.3",
-			"importance": 	"required",
-			"platforms": 	["win", "mac"]
+			"version":    ">=v1.20.1",
+			"importance": "required"
 		}
 	},
+
 	"resources": {
 		"sprites": [
 			"resources/*.png"
 		]
 	},
+
 	"tags": [
 		"enhancement",
 		"interface",
 		"offline",
 		"utility"
 	],
+
 	"settings": {
 		"zoom-sensitivity": {
-			"name": 		"Zoom Speed",
-			"description": 	"The zoom sensitivity. Higher values zoom in faster.",
-			"type": 		"float",
+			"name":        "Zoom Speed",
+			"description": "The zoom sensitivity. Higher values zoom in faster.",
+			"type":        "float",
 
-			"default": 	1,
-			"min": 		0.1,
-			"max": 		10,
+			"default": 1,
+			"min":     0.1,
+			"max":     10,
 
 			"control": {
 				"slider": true
@@ -56,30 +54,43 @@
 
 			"platforms": ["win", "mac"]
 		},
+
 		"auto-hide-menu": {
-			"name": 		"Auto Hide Menu",
-			"description": 	"Automatically hides the menu when you zoom in.",
-			"type": 		"bool",
+			"name":        "Auto Hide Menu",
+			"description": "Automatically hides the menu when you zoom in.",
+			"type":        "bool",
 
 			"default": true,
 
 			"platforms": ["win", "mac"]
 		},
+
 		"auto-show-menu": {
-			"name": 		"Auto Show Menu",
-			"description": 	"Automatically shows the menu when you zoom back out.",
-			"type": 		"bool",
+			"name":        "Auto Show Menu",
+			"description": "Automatically shows the menu when you zoom back out.",
+			"type":        "bool",
 
 			"default": true,
 
 			"platforms": ["win", "mac"]
 		},
+
 		"alt-disables-zoom": {
-			"name": 		"Alt Disables Zoom",
-			"description": 	"Disables zooming while Alt is held.",
-			"type": 		"bool",
+			"name":        "Alt Disables Zoom",
+			"description": "Disables zooming while Alt is held.",
+			"type":        "bool",
 
 			"default": true,
+
+			"platforms": ["win", "mac"]
+		},
+
+		"toggle-menu": {
+			"name":        "Toggle Pause Menu",
+			"description": "Keybind to toggle the pause menu while zoomed.",
+			"type":        "keybind",
+
+			"default": "Home",
 
 			"platforms": ["win", "mac"]
 		}

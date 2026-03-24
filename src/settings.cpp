@@ -1,48 +1,35 @@
 #include "settings.hpp"
 
 #include <Geode/Geode.hpp>
+#include <Geode/loader/SettingV3.hpp>
 
 using namespace geode::prelude;
 
-#ifdef GEODE_IS_DESKTOP
-#include <geode.custom-keybinds/include/Keybinds.hpp>
-using namespace keybinds;
-#endif
-
 SettingsManager* SettingsManager::get() {
-	static auto inst = new SettingsManager;
-	return inst;
+	static auto Inst = new SettingsManager;
+	return Inst;
 }
 
 void SettingsManager::init() {
 	#ifdef GEODE_IS_DESKTOP
 	autoHideMenu = Mod::get()->getSettingValue<bool>("auto-hide-menu");
-	listenForSettingChanges("auto-hide-menu", [&](bool enable) {
-		autoHideMenu = enable;
+	listenForSettingChanges<bool>("auto-hide-menu", [&](bool Enable) {
+		autoHideMenu = Enable;
 	});
 
 	autoShowMenu = Mod::get()->getSettingValue<bool>("auto-show-menu");
-	listenForSettingChanges("auto-show-menu", [&](bool enable) {
-		autoShowMenu = enable;
+	listenForSettingChanges<bool>("auto-show-menu", [&](bool Enable) {
+		autoShowMenu = Enable;
 	});
 
 	altDisablesZoom = Mod::get()->getSettingValue<bool>("alt-disables-zoom");
-	listenForSettingChanges("alt-disables-zoom", [&](bool enable) {
-		altDisablesZoom = enable;
+	listenForSettingChanges<bool>("alt-disables-zoom", [&](bool Enable) {
+		altDisablesZoom = Enable;
 	});
 
 	zoomSensitivity = Mod::get()->getSettingValue<float>("zoom-sensitivity");
-	listenForSettingChanges("zoom-sensitivity", [&](float sensitivity) {
-		zoomSensitivity = sensitivity;
+	listenForSettingChanges<float>("zoom-sensitivity", [&](float Sensitivity) {
+		zoomSensitivity = Sensitivity;
 	});
-
-	BindManager::get()->registerBindable({
-		"toggle_menu"_spr,
-		"Toggle Pause Menu",
-		"",
-		{ Keybind::create(KEY_Home, Modifier::None) },
-		"Zoom",
-		false
-	});
-	#endif // GEODE_IS_DESKTOP
+	#endif
 }

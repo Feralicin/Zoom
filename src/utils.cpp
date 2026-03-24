@@ -1,54 +1,56 @@
+#include <algorithm>
 #include "utils.hpp"
+
 using namespace geode::prelude;
 
-void zoomPlayLayer(CCNode* playLayer, float delta, CCPoint screenAnchor) {
-	if (!playLayer) return;
+void zoomPlayLayer(CCNode* PlayLayer, float Delta, CCPoint ScreenAnchor) {
+	if (!PlayLayer) return;
 
-	CCSize contentSize = playLayer->getContentSize();
-	CCPoint anchorPoint = ccp(
-		screenAnchor.x - contentSize.width / 2,
-		screenAnchor.y - contentSize.height / 2
+	CCSize ContentSize = PlayLayer->getContentSize();
+	CCPoint AnchorPoint = ccp(
+		ScreenAnchor.x - ContentSize.width / 2,
+		ScreenAnchor.y - ContentSize.height / 2
 	);
 
-	float oldScale = playLayer->getScale();
-	float newScale;
+	float OldScale = PlayLayer->getScale();
+	float NewScale;
 
-	if (delta < 0) {
-		newScale = oldScale / (1 - delta);
+	if (Delta < 0) {
+		NewScale = OldScale / (1 - Delta);
 	} else {
-		newScale = oldScale * (1 + delta);
+		NewScale = OldScale * (1 + Delta);
 	}
 
-	if (newScale < 1.0f) newScale = 1.0f;
-	
-	CCPoint deltaFromAnchorPrev = playLayer->getPosition() - anchorPoint;
+	if (NewScale < 1.0f) NewScale = 1.0f;
 
-	playLayer->setPosition(anchorPoint);
-	playLayer->setScale(newScale);
-	playLayer->setPosition(anchorPoint + deltaFromAnchorPrev * newScale / oldScale);
+	CCPoint DeltaFromAnchorPrev = PlayLayer->getPosition() - AnchorPoint;
+
+	PlayLayer->setPosition(AnchorPoint);
+	PlayLayer->setScale(NewScale);
+	PlayLayer->setPosition(AnchorPoint + DeltaFromAnchorPrev * NewScale / OldScale);
 }
 
 CCSize getScreenSize() {
-	float screenTop = CCDirector::sharedDirector()->getScreenTop();
-	float screenBottom = CCDirector::sharedDirector()->getScreenBottom();
-	float screenLeft = CCDirector::sharedDirector()->getScreenLeft();
-	float screenRight = CCDirector::sharedDirector()->getScreenRight();
+	float ScreenTop    = CCDirector::sharedDirector()->getScreenTop();
+	float ScreenBottom = CCDirector::sharedDirector()->getScreenBottom();
+	float ScreenLeft   = CCDirector::sharedDirector()->getScreenLeft();
+	float ScreenRight  = CCDirector::sharedDirector()->getScreenRight();
 
-	return CCSize{ screenRight - screenLeft, screenTop - screenBottom };
+	return CCSize{ ScreenRight - ScreenLeft, ScreenTop - ScreenBottom };
 }
 
-void clampPlayLayerPos(CCNode* playLayer) {
-	if (!playLayer) return;
+void clampPlayLayerPos(CCNode* PlayLayer) {
+	if (!PlayLayer) return;
 
-	CCPoint pos = playLayer->getPosition();
-	CCSize screenSize = getScreenSize();
-	CCSize contentSize = playLayer->getContentSize();
+	CCPoint Pos        = PlayLayer->getPosition();
+	CCSize  ScreenSize = getScreenSize();
+	CCSize  ContentSize = PlayLayer->getContentSize();
 
-	float xLimit = (contentSize.width * playLayer->getScale() - screenSize.width) * 0.5f;
-	float yLimit = (contentSize.height * playLayer->getScale() - screenSize.height) * 0.5f;
+	float XLimit = (ContentSize.width  * PlayLayer->getScale() - ScreenSize.width)  * 0.5f;
+	float YLimit = (ContentSize.height * PlayLayer->getScale() - ScreenSize.height) * 0.5f;
 
-	pos.x = clamp(pos.x, -xLimit, xLimit);
-	pos.y = clamp(pos.y, -yLimit, yLimit);
+	Pos.x = std::clamp(Pos.x, -XLimit, XLimit);
+	Pos.y = std::clamp(Pos.y, -YLimit, YLimit);
 
-	playLayer->setPosition(pos);
+	PlayLayer->setPosition(Pos);
 }

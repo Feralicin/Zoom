@@ -6,9 +6,9 @@ public:
 	void init();
 
 	#ifdef GEODE_IS_DESKTOP
-	bool autoHideMenu;
-	bool autoShowMenu;
-	bool altDisablesZoom;
+	bool  autoHideMenu;
+	bool  autoShowMenu;
+	bool  altDisablesZoom;
 	float zoomSensitivity;
 	#endif
 };
